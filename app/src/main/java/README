@@ -1,0 +1,8 @@
+
+
+
+ShoppingCart stores all cart data client-side.  It is a singleton that persists between activities,
+and it holds a list of CartItem (an shopping cart specific item that parses well into the cart activity
+view and holds specific item information.
+
+The PizzaFragment handles the data used in the adapter.
