@@ -14,12 +14,13 @@ import com.zumepizza.interview.R;
 import com.zumepizza.interview.models.ShoppingCart;
 import com.zumepizza.interview.adapters.CartAdapter;
 
+/*
+    This activity specifically displays the cart via a recyclerview.  The cart data persists in the
+    ShoppingCart singleton.
+*/
+
 public class CartActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private RecyclerView recyclerView;
-    private CartAdapter adapter;
-    private RecyclerView.LayoutManager manager;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +37,9 @@ public class CartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.e(TAG, "The cart contents are " + ShoppingCart.getInstance().toString());
-        recyclerView = findViewById(R.id.cartRecyclerView);
-        manager = new LinearLayoutManager(this);
-        adapter= new CartAdapter(this);
+        RecyclerView recyclerView = findViewById(R.id.cartRecyclerView);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        CartAdapter adapter = new CartAdapter(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
     }

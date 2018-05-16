@@ -25,6 +25,10 @@ import com.zumepizza.interview.models.PizzaItem;
 
 import java.util.List;
 
+/*
+    Adapter to present the menu items in a recyclerview.
+ */
+
 public class PizzasAdapter extends RecyclerView.Adapter<PizzasAdapter.PizzaViewHolder> {
     private final Activity activity;
     private List<PizzaItem> pizzaList;

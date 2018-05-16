@@ -17,8 +17,9 @@ import com.zumepizza.interview.fragments.BaseFragment;
  3) Implement cart functionality, to allow users to add/remove items to their cart.
  4) Add cart activity to display items added to cart. Use designs found in mocks/cart-mock-up.png
 
+    MainActivity features basic fragment inflation.  I started off with fragment for this activity,
+    but in reality it is overkill for the features asked for.
  */
-
 
 public class MainActivity extends AppCompatActivity {
 

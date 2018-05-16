@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.zumepizza.interview.R;
+import com.zumepizza.interview.Utils;
 import com.zumepizza.interview.adapters.PizzasAdapter;
 import com.zumepizza.interview.activities.CartActivity;
 import com.zumepizza.interview.models.PizzaItem;
@@ -52,8 +53,6 @@ public class PizzasFragment extends BaseFragment implements API.ResponseHandler 
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         api.fetchMenu(this);
-
-
     }
 
     public static PizzasFragment newInstance() {
@@ -71,7 +70,7 @@ public class PizzasFragment extends BaseFragment implements API.ResponseHandler 
             try {
                 JSONObject object = response.getJSONObject(i);
                 Log.e(TAG, object.toString());
-                PizzaItem pizza = mapPizza(object);
+                PizzaItem pizza = Utils.mapPizza(object);
                 pizzaList.add(pizza);
                 updatePizzaViews(pizzaList);
             } catch( JSONException e) {
@@ -83,26 +82,4 @@ public class PizzasFragment extends BaseFragment implements API.ResponseHandler 
     public void updatePizzaViews(List<PizzaItem> pizzaList) {
         adapter.updatePizzaList(pizzaList);
     }
-
-    public PizzaItem mapPizza(JSONObject object) {
-        PizzaItem pizza = new PizzaItem();
-        try{
-            pizza.setId(object.optInt("id", 0));
-            pizza.setName(object.optString("name", "N.A."));
-            pizza.setPrice(object.optString("price", "N.A."));
-            pizza.setImageUrl(object.getJSONObject("menuAsset").optString("url"));
-            JSONArray toppings = object.optJSONArray("toppings");
-            String[] toppingsArray = new String[toppings.length()];
-            for (int i = 0 ; i < toppings.length(); i++) {
-                toppingsArray[i] = toppings.getJSONObject(i).optString("name");
-            }
-            pizza.setToppings(toppingsArray);
-            pizza.setVegetarian(object.optInt("vegetarian", 0) == 1);
-        } catch(JSONException e) {
-            e.printStackTrace();
-        }
-        Log.e(TAG, pizza.toString());
-        return pizza;
-    }
-
 }

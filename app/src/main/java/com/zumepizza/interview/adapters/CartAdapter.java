@@ -11,19 +11,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.zumepizza.interview.Utils;
 import com.zumepizza.interview.models.CartItem;
 import com.zumepizza.interview.R;
 import com.zumepizza.interview.models.ShoppingCart;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
+
+/*
+    The cart adapter handles the recyclerview data display for the ShoppingCart.  Picasso
+    is used to load the pizza images from the web.  Created this seperate adapter for
+    easier readability.  Using a switch case for viewType would allow using a single
+    Adapter for both recyclerviews.
+
+    Used anonymous click listeners for cart buttons as a simple approach.
+ */
+
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private final Activity activity;
 
     public CartAdapter(@NonNull final Activity activity) {
-        this.activity = activity;
+        Activity activity1 = activity;
     }
 
     @Override
@@ -38,8 +46,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         final CartItem cartItem = cartItems.get(position);
         Picasso.get().load(cartItem.getUrl()).into(holder.imagePizza);
         holder.textName.setText(cartItem.getName());
-        holder.textQuantity.setText("x"+Integer.toString(cartItem.getQuantity()));
-        holder.textPrice.setText(priceToString(cartItem.getQuantity()*Float.parseFloat(cartItem.getPrice())));
+        holder.textQuantity.setText("x" + Integer.toString(cartItem.getQuantity()));
+        holder.textPrice.setText(Utils.priceToString(cartItem.getQuantity()*Float.parseFloat(cartItem.getPrice())));
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,10 +99,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
 
-    // Move this to utils
-    public String priceToString(float value) {
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        return numberFormat.format(value);
-    }
 
 }
